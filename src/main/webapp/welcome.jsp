@@ -32,7 +32,15 @@
         </form>
 
         <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
-
+        <div class="container">
+            <table class="table-bordered table-condensed table-hover">
+                <c:forEach items="${users}" var="item">
+                    <tr>
+                        <td><c:out value="${item}"/></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </c:if>
 
 </div>

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 public class UserController {
     @Autowired
@@ -52,12 +54,19 @@ public class UserController {
 
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
-
         return "login";
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         return "welcome";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<User> users(Model model, String login) {
+        if(login != null) {
+            model.addAllAttributes(userService.listUsers());
+        }
+        return null;
     }
 }
