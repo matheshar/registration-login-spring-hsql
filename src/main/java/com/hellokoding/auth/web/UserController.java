@@ -31,13 +31,6 @@ public class UserController {
         return "registration";
     }
 
-    /**
-     *
-     * @param userForm
-     * @param bindingResult
-     * @param model
-     * @return a string if registration is successful takes you to welcome page, otherwise stays on registration page.
-     */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
