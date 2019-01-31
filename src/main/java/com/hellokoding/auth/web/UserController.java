@@ -27,8 +27,11 @@ public class UserController {
 
     /**
      * 
-     * @param model
+     * @param model used to add up
      * @return
+     * DDDDDDDDDDDDDD
+     * DDDDDDDDDDDD
+     * DDDDDDDDDDDD
      */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
