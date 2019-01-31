@@ -31,6 +31,14 @@ public class UserController {
         return "registration";
     }
 
+    /**
+     * 
+     * @param userForm
+     * @param bindingResult
+     * @param model
+     * @return
+     */
+
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
