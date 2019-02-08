@@ -4,6 +4,9 @@ import com.hellokoding.auth.model.User;
 import com.hellokoding.auth.service.SecurityService;
 import com.hellokoding.auth.service.UserService;
 import com.hellokoding.auth.validator.UserValidator;
+import org.hibernate.service.spi.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +14,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+//@RestController
 public class UserController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
@@ -61,11 +69,21 @@ public class UserController {
         return "welcome";
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<User> users(Model model, String login) {
-        if(login != null) {
-            model.addAllAttributes(userService.listUsers());
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String users(Model model) {
+        List<User> users = new ArrayList<>();
+        try {
+            users = userService.listUsers();
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
         }
-        return null;
+        model.addAttribute("users", users);
+        return "list";
+    }
+
+    @RequestMapping(value = "/delete")
+    public String deleteUser(@ModelAttribute User user) throws ServiceException {
+        userService.deleteUser(user);
+        return "redirect:/list";
     }
 }
