@@ -32,7 +32,9 @@
         </form>
 
         <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
-        <h4 class="text-center"><a href="${contextPath}/list">List of users.</a></h4>
+        <div class="container">
+            <h4 class="text-center"><a href="${contextPath}/list">List of users.</a></h4>
+        </div>
     </c:if>
 </div>
 <!-- /container -->
